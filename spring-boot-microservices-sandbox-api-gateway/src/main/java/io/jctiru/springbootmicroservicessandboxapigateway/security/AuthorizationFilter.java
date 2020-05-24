@@ -39,11 +39,9 @@ public class AuthorizationFilter extends BasicAuthenticationFilter {
 
 		if (header == null || !header.startsWith(env.getProperty("authorization.token.header.prefix"))) {
 			chain.doFilter(req, res);
-			System.out.println("Header not found");
 			return;
 		}
 
-		System.out.println("Header found: " + header);
 		UsernamePasswordAuthenticationToken authentication = getAuthentication(req);
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		chain.doFilter(req, res);
@@ -52,8 +50,6 @@ public class AuthorizationFilter extends BasicAuthenticationFilter {
 	private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
 		String token = request.getHeader(env.getProperty("authorization.token.header.name"));
 
-		System.out.println(token);
-		
 		if (token != null) {
 			token = token.replace(env.getProperty("authorization.token.header.prefix"), "");
 
