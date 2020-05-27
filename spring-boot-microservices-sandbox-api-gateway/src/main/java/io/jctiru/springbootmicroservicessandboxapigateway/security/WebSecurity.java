@@ -24,6 +24,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 		http.csrf().disable()
 				.authorizeRequests()
 				.antMatchers(env.getProperty("api.h2console.url.path")).permitAll()
+				.antMatchers(env.getProperty("api.apigateway.actuator.url.path")).permitAll()
 				.antMatchers(HttpMethod.POST, env.getProperty("api.registration.url.path")).permitAll()
 				.antMatchers(HttpMethod.POST, env.getProperty("api.login.url.path")).permitAll()
 				.anyRequest().authenticated()
